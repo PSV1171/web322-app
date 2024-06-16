@@ -6,12 +6,15 @@ let categories = [];
 
 function initialize() {
     return new Promise((resolve, reject) => {
-        fs.readFile(path.join(__dirname, 'data/items.json'), 'utf8', (err, data) => {
+        const itemsFilePath = path.join(__dirname, 'data', 'items.json');
+        const categoriesFilePath = path.join(__dirname, 'data', 'categories.json');
+
+        fs.readFile(itemsFilePath, 'utf8', (err, data) => {
             if (err) {
                 reject('unable to read items file');
             } else {
                 items = JSON.parse(data);
-                fs.readFile(path.join(__dirname, 'data/categories.json'), 'utf8', (err, data) => {
+                fs.readFile(categoriesFilePath, 'utf8', (err, data) => {
                     if (err) {
                         reject('unable to read categories file');
                     } else {
