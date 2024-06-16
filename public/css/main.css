@@ -1,0 +1,70 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('/images/abstract-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-blur {
+    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background to enhance the blur effect */
+    backdrop-filter: blur(10px); /* Blur effect */
+}
+
+h2 {
+    color: #343a40;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+footer {
+    background-color: #343a40;
+    color: white;
+    padding: 10px 0;
+}
+
+.container {
+    max-width: 960px;
+}
+
+.nav-link {
+    color: #ffffff !important;
+    transition: transform 0.3s;
+}
+
+.nav-link:hover {
+    color: #d4d4d4 !important;
+    transform: scale(1.1);
+}
+
+.navbar-brand {
+    color: #ffffff !important;
+}
+
+.navbar-brand:hover {
+    color: #d4d4d4 !important;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.card.hover-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card.hover-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
