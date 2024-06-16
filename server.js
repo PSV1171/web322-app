@@ -24,7 +24,7 @@ const path = require('path');
 const storeService = require('./store-service');
 
 // Serve static files from the "public" directory
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 
 // Route to serve about.html on /about URL
 app.get('/about', (req, res) => {
