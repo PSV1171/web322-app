@@ -1,18 +1,19 @@
 const fs = require('fs');
+const path = require('path');
 
 let items = [];
 let categories = [];
 
 function initialize() {
     return new Promise((resolve, reject) => {
-        fs.readFile('./data/items.json', 'utf8', (err, data) => {
+        fs.readFile(path.join(__dirname, 'data/items.json'), 'utf8', (err, data) => {
             if (err) {
-                reject('unable to read file');
+                reject('unable to read items file');
             } else {
                 items = JSON.parse(data);
-                fs.readFile('./data/categories.json', 'utf8', (err, data) => {
+                fs.readFile(path.join(__dirname, 'data/categories.json'), 'utf8', (err, data) => {
                     if (err) {
-                        reject('unable to read file');
+                        reject('unable to read categories file');
                     } else {
                         categories = JSON.parse(data);
                         resolve();
