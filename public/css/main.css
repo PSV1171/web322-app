@@ -6,11 +6,6 @@ body {
     padding: 0;
 }
 
-.navbar-blur {
-    background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent background to enhance the blur effect */
-    backdrop-filter: blur(10px); /* Blur effect */
-}
-
 h2 {
     color: #343a40;
 }
