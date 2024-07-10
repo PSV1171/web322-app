@@ -1,0 +1,40 @@
+<!-- views/shop.hbs -->
+<div class="row">
+    {{#if data.post}}
+        <div class="col-md-8">
+            <article>
+                <h2>{{data.post.title}}</h2>
+                <img src="{{data.post.featureImage}}" alt="Feature Image" style="width: 200px;;height:min-content">
+                <br /><br />
+                {{#safeHTML}}{{data.post.body}}{{/safeHTML}}
+                <br /><br />
+                <p><strong>Category:</strong> {{data.post.category}}</p>
+                <p><strong>Price:</strong> {{data.post.price}}</p>
+                <p><strong>Last Updated:</strong> {{data.post.postDate}}</p>
+            </article>
+        </div>
+    {{else}}
+        <div class="col-md-12 text-center">
+            <h2>{{data.message}}</h2>
+            <p>Please try another Post / Category</p>
+        </div>
+    {{/if}}
+    <div class="col-md-4">
+        {{#if data.items}}
+            <h4>Items</h4>
+            <ul>
+                {{#each data.items}}
+                    <li><a href="/shop/{{this.id}}?category={{../viewingCategory}}">{{this.title}}</a></li>
+                {{/each}}
+            </ul>
+        {{/if}}
+        {{#if data.categories}}
+            <h4>Categories</h4>
+            <ul>
+                {{#each data.categories}}
+                    <li><a href="/shop?category={{this.id}}">{{this.category}}</a></li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+</div>

@@ -1,3 +1,4 @@
+// store-service.js
 const fs = require('fs');
 const path = require('path');
 
@@ -27,15 +28,6 @@ function initialize() {
     });
 }
 
-/*function addItem(itemData) {
-    return new Promise((resolve, reject) => {
-        itemData.id = items.length + 1;
-        itemData.published = itemData.published ? true : false;
-        items.push(itemData);
-        resolve(itemData);
-    });
-}*/
-
 function addItem(itemData) {
     return new Promise((resolve, reject) => {
         if (itemData.published === undefined) {
@@ -45,11 +37,11 @@ function addItem(itemData) {
         }
 
         itemData.id = items.length + 1; // Setting the id
+        itemData.postDate = new Date().toISOString().split('T')[0]; // Setting the post date
         items.push(itemData); // Adding the item to the array
         resolve(itemData);
     });
 }
-
 
 function getAllItems() {
     return new Promise((resolve, reject) => {
@@ -64,6 +56,17 @@ function getAllItems() {
 function getPublishedItems() {
     return new Promise((resolve, reject) => {
         const publishedItems = items.filter(item => item.published);
+        if (publishedItems.length === 0) {
+            reject('no results returned');
+        } else {
+            resolve(publishedItems);
+        }
+    });
+}
+
+function getPublishedItemsByCategory(category) {
+    return new Promise((resolve, reject) => {
+        const publishedItems = items.filter(item => item.published && item.category == category);
         if (publishedItems.length === 0) {
             reject('no results returned');
         } else {
@@ -115,4 +118,4 @@ function getItemById(id) {
     });
 }
 
-module.exports = { initialize, getAllItems, getPublishedItems, getCategories, addItem, getItemsByCategory, getItemsByMinDate, getItemById };
+module.exports = { initialize, getAllItems, getPublishedItems, getPublishedItemsByCategory, getCategories, addItem, getItemsByCategory, getItemsByMinDate, getItemById };
