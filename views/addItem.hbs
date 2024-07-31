@@ -1,139 +1,35 @@
-<div class="container" style="padding-top: 90px;">
-            <div class="row">
-                <aside class="col-md-3">
-                    <div class="card hover-card">
-                        <div class="card-header">
-                    <h2>Coming Soon</h2></div>
-                    <div class="card-body">
-                    <p class="card-text">Season 4 of "The Boys" is highly anticipated, promising more explosive developments and shocking twists. With Homelander's increasingly unstable behavior, his reign 
-                        of terror is expected to pose significant threats. The vigilante group led by Billy Butcher will continue their fight against Vought International and the corrupt 
-                        superheroes, with Starlight playing a crucial role due to her insider knowledge. Vought's corporate machinations will add to the intrigue, while the return of 
-                        characters like Soldier Boy and the rise of Victoria Neuman will further complicate the dynamics. Maintaining its blend of dark satire, intense action, and social 
-                        commentary, Season 4 will explore themes of power, corruption, and the moral ambiguities of heroism. Fans can expect more jaw-dropping moments and bold storytelling 
-                        choices that push boundaries and challenge expectations.
-                    </p>
-                </div>
-            </div>
-                </aside>
-                
-                <section class="main col-md-9">
-                    <article>
-                        <div class="card hover-card">
-                        <div class="card-header">
-                        <h2>About</h2></div>
-                        <div class="card-body">
-                        <p class="card-text">
-                            Hey, my name is Param Singh Virdi. I'm an international student. I'm pursuing CPP(Computer Programming),  not that I love it but it's technical and skillful.
-                            So, here is the info about The homelander - from "The Boys". Homelander, one of the central characters in the TV series "The Boys," is a complex and menacing 
-                            figure who serves as the primary antagonist. Portrayed by Antony Starr, Homelander is the leader of the Seven, a group of superheroes managed by the powerful 
-                            corporation Vought International. At first glance, he embodies the archetype of a superhero: strong, handsome, and charismatic. However, beneath his polished 
-                            exterior lies a deeply flawed and dangerous individual.
-                        <p>
-                            Homelander's powers are immense, making him nearly invincible. He possesses superhuman strength, speed, flight, and laser vision, reminiscent of iconic superheroes 
-                            like Superman. These abilities, combined with his public image as the world's greatest hero, make him a formidable force. Yet, it's his personality and actions 
-                            that truly set him apart.
-                        </p>
-                        <p>
-                            Raised in a laboratory by Vought, Homelander's upbringing lacked genuine human connection and moral guidance, leading to his narcissistic and sociopathic tendencies. 
-                            He craves adoration and control, often resorting to extreme measures to maintain his image and assert dominance. His disregard for human life and his manipulative 
-                            nature are evident in his interactions with both allies and enemies.
-                        </p>
-                        <p>
-                            Throughout "The Boys," Homelander's actions reveal the dark side of unchecked power. He is ruthless in dealing with threats to his authority, whether they come 
-                            from rebellious members of the Seven or external adversaries. His relationship with Madelyn Stillwell, a Vought executive, highlights his need for maternal 
-                            approval and control, further complicating his character. Homelander's public persona contrasts sharply with his private behavior. While he projects an image of 
-                            heroism and benevolence, he is responsible for numerous atrocities, including the plane crash incident where he chooses not to save the passengers to avoid damaging 
-                            his reputation. This duality makes him a captivating and terrifying character, as viewers witness the consequences of his actions and the fear he instills in those around him.
-                        </p>
-                        <p>
-                            In essence, Homelander is a critique of the superhero archetype, exploring the potential dangers of absolute power and the corruption that can arise from it. 
-                            His character serves as a reminder that heroes, too, can be deeply flawed, and the line between heroism and villainy can be perilously thin.
-                        </p>
-                    </div>
-                </div>
-                    </article>
-                </section>
-            </div>
-        </div>
-
-        <form method="post" action="/items/add" enctype="multipart/form-data">
-          <fieldset>
-            <legend>Feature Image</legend>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    id="featureImage"
-                    name="featureImage"
-                    type="file"
-                  />
-                </div>
-              </div>
-            </div>
-          </fieldset>
-          <br />
-          <fieldset>
-            <legend>Post Content</legend>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="title">Item Name:</label>
-                  <input class="form-control" id="title" name="title" type="text" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="price">Price:</label>
-                  <input class="form-control" id="price" name="price" type="text" />
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label for="body">Description:</label>
-                  <textarea
-                    class="form-control"
-                    id="body"
-                    name="body"
-                    rows="15"
-                  ></textarea>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="category">Category:</label>
-                  <select class="form-control" name="category" id="category">
-                    <option value="1">Home, Garden</option>
-                    <option value="2">Electronics, Computers, Video Games</option>
-                    <option value="3">Clothing</option>
-                    <option value="4">Sports & Outdoors</option>
-                    <option value="5">Pets</option>
-                  </select>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label for="category">Visibility:</label>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="published" id="published" />
-                      Published
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </fieldset>
-          <hr />
-          <input
-            type="submit"
-            class="btn btn-primary pull-right"
-            value="Add Post"
-          /><br /><br /><br />
-        </form>
+<!-- views/addItem.hbs -->
+<h2>Add Item</h2>
+<form action="/Items/add" method="POST" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" class="form-control" id="price" name="price" step="0.01" required>
+    </div>
+    <div class="form-group">
+        <label for="postDate">Post Date:</label>
+        <input type="date" class="form-control" id="postDate" name="postDate" required>
+    </div>
+    <!-- Other form fields... -->
+    <div class="form-group">
+        <label for="category">Category:</label>
+        {{#if categories}}
+            <select class="form-control" name="category" id="category">
+                <option value="">Select Category</option>
+                {{#each categories}}
+                    <option value="{{id}}">{{category}}</option>
+                {{/each}}
+            </select>
+        {{else}}
+            <div>No Categories</div>
+        {{/if}}
+    </div>
+    <div class="form-group">
+        <label for="featureImage">Feature Image:</label>
+        <input type="file" class="form-control" id="featureImage" name="featureImage" required>
+    </div>
+    <button type="submit" class="btn btn-success">Add Item</button>
+</form>

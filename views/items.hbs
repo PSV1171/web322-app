@@ -1,4 +1,5 @@
 <!-- views/items.hbs -->
+<a href="/items/add" class="btn btn-success pull-right">Add Item</a>
 <div class="row">
     <div class="col-md-12">
         <h2>Items</h2>
@@ -13,6 +14,7 @@
                         <th>Category</th>
                         <th>Price</th>
                         <th>Published</th>
+                        <th></th> <!-- Empty header for the remove button column -->
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +26,9 @@
                             <td><a href="/items?category={{this.category}}">{{this.category}}</a></td>
                             <td>{{this.price}}</td>
                             <td>{{this.published}}</td>
+                            <td>
+                                <a href="/items/delete/{{this.id}}" class="btn btn-danger">Remove</a>
+                            </td>
                         </tr>
                     {{/each}}
                 </tbody>

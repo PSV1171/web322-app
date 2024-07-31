@@ -1,26 +1,26 @@
 /*********************************************************************************
-*  WEB322 – Assignment 03
+*  WEB322 – Assignment 05
 *  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Param Singh Virdi Student ID: 164073215 Date: 7/9/2024
+*  Name: Param Singh Virdi Student ID: 164073215 Date: 7/30/2024
 *
-*  Vercel Web App URL: https://web322-app-pi-inky.vercel.app/
+*  Vercel Web App URL: 
 * 
-*  GitHub Repository URL: https://github.com/PSV1171/web322-app.git
+*  GitHub Repository URL: 
 *
 ********************************************************************************/ 
 
-const express = require('express'); // "require" the Express module
-const app = express(); // obtain the "app" object
-const exphbs = require('express-handlebars');
-const HTTP_PORT = process.env.PORT || 8080; // assign a port
+const express = require('express');
+const app = express();
+const HTTP_PORT = process.env.PORT || 8080;
 const path = require('path');
-const storeService = require('./store-service');
 const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
+const storeService = require('./store-service');
+const exphbs = require('express-handlebars');
 
 cloudinary.config({
     cloud_name: 'dcetjtubd',
@@ -48,7 +48,13 @@ const hbs = exphbs.create({
             } else {
                 return options.fn(this);
             }
-        }        
+        },
+        formatDate: function(dateObj) {
+            let year = dateObj.getFullYear();
+            let month = (dateObj.getMonth() + 1).toString();
+            let day = dateObj.getDate().toString();
+            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+        }
     }
 });
 
@@ -67,12 +73,44 @@ app.use(function(req, res, next){
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.urlencoded({ extended: true }));
+
+// Categories Routes
+app.get('/categories/add', (req, res) => {
+    res.render('addCategory');
+});
+
+app.post('/categories/add', (req, res) => {
+    storeService.addCategory(req.body).then(() => {
+        res.redirect('/categories');
+    }).catch((err) => {
+        res.status(500).send("Unable to Add Category");
+    });
+});
+
+app.get('/categories/delete/:id', (req, res) => {
+    storeService.deleteCategoryById(req.params.id).then(() => {
+        res.redirect('/categories');
+    }).catch((err) => {
+        res.status(500).send("Unable to Remove Category / Category not found");
+    });
+});
+
+// Items Deletion Routes
+app.get('/items/delete/:id', (req, res) => {
+    storeService.deleteItemById(req.params.id).then(() => {
+        res.redirect('/items');
+    }).catch((err) => {
+        res.status(500).send("Unable to Remove Item / Item not found");
+    });
+});
+
 // Route to render about instead of /about.html file
 app.get('/about', (req, res) => {
     res.render('about');
 });
 
-// Redirect root to /about
+// Redirect root to /shop
 app.get('/', (req, res) => {
     res.redirect('/shop');
 });
@@ -96,7 +134,11 @@ app.get('/items', (req, res) => {
 
 // Route to add items
 app.get('/items/add', (req, res) => {
-    res.render('addItem');
+    storeService.getCategories().then((data) => {
+        res.render('addItem', { categories: data });
+    }).catch(() => {
+        res.render('addItem', { categories: [] });
+    });
 });
 
 // Route to get an item by ID

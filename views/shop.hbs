@@ -4,13 +4,13 @@
         <div class="col-md-8">
             <article>
                 <h2>{{data.post.title}}</h2>
-                <img src="{{data.post.featureImage}}" alt="Feature Image" style="width: 200px;;height:min-content">
+                <img src="{{data.post.featureImage}}" alt="Feature Image" style="width:100%;height:auto;">
                 <br /><br />
                 {{#safeHTML}}{{data.post.body}}{{/safeHTML}}
                 <br /><br />
                 <p><strong>Category:</strong> {{data.post.category}}</p>
                 <p><strong>Price:</strong> {{data.post.price}}</p>
-                <p><strong>Last Updated:</strong> {{data.post.postDate}}</p>
+                <p><strong>Last Updated:</strong> {{#formatDate data.post.itemDate}}{{/formatDate}}</p>
             </article>
         </div>
     {{else}}
@@ -24,7 +24,7 @@
             <h4>Items</h4>
             <ul>
                 {{#each data.items}}
-                    <li><a href="/shop/{{this.id}}?category={{../viewingCategory}}">{{this.title}}</a></li>
+                    <li><a href="/shop/{{this.id}}?category={{../viewingCategory}}" class="custom-link">{{this.title}}</a></li>
                 {{/each}}
             </ul>
         {{/if}}
@@ -32,7 +32,11 @@
             <h4>Categories</h4>
             <ul>
                 {{#each data.categories}}
-                    <li><a href="/shop?category={{this.id}}">{{this.category}}</a></li>
+                    <li>
+                        <a href="/shop?category={{this.id}}" class="custom-link">
+                            {{this.name}}
+                        </a>
+                    </li>
                 {{/each}}
             </ul>
         {{/if}}
