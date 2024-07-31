@@ -141,13 +141,6 @@ app.get('/items/add', (req, res) => {
     });
 });
 
-// Route to get an item by ID
-app.get('/item/:id', (req, res) => {
-    storeService.getItemById(req.params.id)
-        .then((data) => res.json(data))
-        .catch((err) => res.status(404).json({ message: err }));
-});
-
 // POST Route to handle item addition
 app.post('/items/add', upload.single('featureImage'), (req, res) => {
     if (req.file) {
@@ -191,6 +184,13 @@ app.post('/items/add', upload.single('featureImage'), (req, res) => {
             res.send("There was an error adding the item.");
         });
     }
+});
+
+// Route to get an item by ID
+app.get('/item/:id', (req, res) => {
+    storeService.getItemById(req.params.id)
+        .then((data) => res.json(data))
+        .catch((err) => res.status(404).json({ message: err }));
 });
 
 // Route to return all published items

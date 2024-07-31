@@ -4,7 +4,6 @@ const path = require('path');
 
 let categories = [];
 let items = [];
-
 const Sequelize = require('sequelize');
 
 var sequelize = new Sequelize('SenecaDB', 'SenecaDB_owner', 'bQL5YykxAwS3', {
