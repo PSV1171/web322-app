@@ -11,9 +11,5 @@
       "src": "/(/*)",
       "dest": "server.js"
     }
-  ],
-  "env": {
-    "DATABASE_URL": "postgres://SenecaDB_owner:bQL5YykxAwS3@ep-shiny-cell-a561nd35.us-east-2.aws.neon.tech:5432/SenecaDB",
-    "CLOUDINARY_URL": "cloudinary://<113458997972816>:<oDn2BvkJ6z8tVF4eCHiSftCrd1k>@dcetjtubd"
-  }
+  ]
 }
