@@ -1,14 +1,18 @@
 {
-    "version": 2,
-    "build": {
+  "version": 2,
+  "builds": [
+    {
       "src": "server.js",
       "use": "@vercel/node"
-    },
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "server.js"
-      }
-    ]
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.js"
+    }
+  ],
+  "env": {
+    "DATABASE_URL": "postgres://SenecaDB_owner:bQL5YykxAwS3@ep-shiny-cell-a561nd35.us-east-2.aws.neon.tech:5432/SenecaDB"
   }
-  
+}
