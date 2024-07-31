@@ -270,6 +270,30 @@ app.get('/categories', (req, res) => {
     });
 });
 
+//Handle Vercel Deployment with Database URL
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error acquiring client', err.stack);
+  }
+  client.query('SELECT NOW()', (err, result) => {
+    release();
+    if (err) {
+      return console.error('Error executing query', err.stack);
+    }
+    console.log(result.rows);
+  });
+});
+
+
 // Handle 404 - Page Not Found
 app.use((req, res) => {
     res.status(404).render('404');
