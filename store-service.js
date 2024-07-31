@@ -13,7 +13,8 @@ var sequelize = new Sequelize('SenecaDB', 'SenecaDB_owner', 'bQL5YykxAwS3', {
     dialectOptions: {
         ssl: { rejectUnauthorized: false }
     },
-    query: { raw: true }
+    query: { raw: true },
+    dialectModule: require('pg')
 });
 
 // Define Models
