@@ -6,9 +6,9 @@
 * 
 *  Name: Param Singh Virdi Student ID: 164073215 Date: 7/30/2024
 *
-*  Vercel Web App URL: 
+*  Vercel Web App URL: https://web322-2he1l4vfd-nik1171s-projects.vercel.app
 * 
-*  GitHub Repository URL: 
+*  GitHub Repository URL: https://github.com/PSV1171/web322-app.git
 *
 ********************************************************************************/ 
 
