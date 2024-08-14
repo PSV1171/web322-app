@@ -1,14 +1,37 @@
-<form action="/register" method="POST">
-    <input type="text" name="userName" placeholder="User Name" value="{{userName}}" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <input type="password" name="password2" placeholder="Confirm Password" required />
-    <input type="email" name="email" placeholder="Email Address" required />
-    <button type="submit">Register</button>
-</form>
+<h2>Register</h2>
+
 {{#if errorMessage}}
-<div class="alert alert-danger"> <strong>Error:</strong> {{errorMessage}}</div>
+    <div class="alert alert-danger">
+        <strong>Error:</strong> {{errorMessage}}
+    </div>
 {{/if}}
+
 {{#if successMessage}}
-<div class="alert alert-success"> <strong>Success:</strong> {{successMessage}}</div>
-<a class="btn btn-success" href="/login">Proceed to Log in</a>
+    <div class="alert alert-success">
+        <strong>Success:</strong> {{successMessage}}
+        <a class="btn btn-success pull-right" href="/login">
+            &nbsp;&nbsp;&nbsp;Proceed to Log in&nbsp;&nbsp;&nbsp;
+        </a>
+        <br /><br /><br />
+    </div>
+{{else}}
+    <form action="/register" method="POST">
+        <div class="form-group">
+            <label for="userName">User Name</label>
+            <input type="text" class="form-control" id="userName" name="userName" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <div class="form-group">
+            <label for="password2">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" name="password2" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <button type="submit" class="btn btn-success">Register</button>
+    </form>
 {{/if}}

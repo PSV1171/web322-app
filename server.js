@@ -121,6 +121,49 @@ function ensureLogin(req, res, next) {
     }
 }
 
+// Display the registration page
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+// Handle user registration
+app.post('/register', (req, res) => {
+    authData.registerUser(req.body)
+        .then(() => {
+            res.render('register', { successMessage: "User created successfully" });
+        })
+        .catch((err) => {
+            res.render('register', { errorMessage: err, userName: req.body.userName });
+        });
+});
+
+// Display the login page
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+// Handle user login
+app.post('/login', (req, res) => {
+    authData.checkUser(req.body)
+        .then((user) => {
+            req.session.user = {
+                userName: user.userName,
+                email: user.email,
+                loginHistory: user.loginHistory
+            };
+            res.redirect('/userHistory');
+        })
+        .catch((err) => {
+            res.render('login', { errorMessage: err, userName: req.body.userName });
+        });
+});
+
+// Handle user logout
+app.get('/logout', (req, res) => {
+    req.session.reset();
+    res.redirect('/');
+});
+
 // Define Routes
 
 // Categories Routes
@@ -316,6 +359,11 @@ app.get('/categories', (req, res) => {
     }).catch(() => {
         res.render('categories', { message: 'no results' });
     });
+});
+
+app.get('/userHistory', ensureLogin, (req, res) => {
+    // Fetch user history data and render the view
+    res.render('userHistory', { user: req.session.user });
 });
 
 // Include 'auth-service.js' and add it to the initialization sequence

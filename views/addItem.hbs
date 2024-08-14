@@ -1,6 +1,6 @@
 <!-- views/addItem.hbs -->
 <h2>Add Item</h2>
-<form action="/Items/add" method="POST" enctype="multipart/form-data">
+<form action="/items/add" method="POST" enctype="multipart/form-data">
     <div class="form-group">
         <label for="title">Title:</label>
         <input type="text" class="form-control" id="title" name="title" required>
@@ -13,7 +13,6 @@
         <label for="postDate">Post Date:</label>
         <input type="date" class="form-control" id="postDate" name="postDate" required>
     </div>
-    <!-- Other form fields... -->
     <div class="form-group">
         <label for="category">Category:</label>
         {{#if categories}}
@@ -24,12 +23,12 @@
                 {{/each}}
             </select>
         {{else}}
-            <div>No Categories</div>
+            <div>No Categories Available</div>
         {{/if}}
     </div>
     <div class="form-group">
         <label for="featureImage">Feature Image:</label>
-        <input type="file" class="form-control" id="featureImage" name="featureImage" required>
+        <input type="file" class="form-control" id="featureImage" name="featureImage">
     </div>
     <button type="submit" class="btn btn-success">Add Item</button>
 </form>
