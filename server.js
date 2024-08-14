@@ -1,10 +1,10 @@
 /*********************************************************************************
-*  WEB322 – Assignment 05
+*  WEB322 – Assignment 06
 *  I declare that this assignment is my own work in accordance with Seneca Academic Policy.  No part 
 *  of this assignment has been copied manually or electronically from any other source 
 *  (including 3rd party web sites) or distributed to other students.
 * 
-*  Name: Param Singh Virdi Student ID: 164073215 Date: 7/30/2024
+*  Name: Param Singh Virdi Student ID: 164073215 Date: 8/13/2024
 *
 *  Vercel Web App URL: https://web322-2he1l4vfd-nik1171s-projects.vercel.app
 * 
@@ -20,7 +20,30 @@ const multer = require('multer');
 const cloudinary = require('cloudinary').v2;
 const streamifier = require('streamifier');
 const storeService = require('./store-service');
-const exphbs = require('express-handlebars');
+const authData = require('./auth-service');
+const clientSessions = require('client-sessions');
+const { Pool } = require('pg');
+
+// Configure Vercel Deployment with Database URL
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+        rejectUnauthorized: false
+    }
+});
+
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Error acquiring client', err.stack);
+    }
+    client.query('SELECT NOW()', (err, result) => {
+        release();
+        if (err) {
+            return console.error('Error executing query', err.stack);
+        }
+        console.log(result.rows);
+    });
+});
 
 cloudinary.config({
     cloud_name: 'dcetjtubd',
@@ -32,6 +55,7 @@ cloudinary.config({
 const upload = multer(); // No disk storage, using memory storage
 
 // Set up express-handlebars
+const exphbs = require('express-handlebars');
 const hbs = exphbs.create({
     extname: '.hbs',
     defaultLayout: 'main',
@@ -72,8 +96,32 @@ app.use(function(req, res, next){
 
 // Serve static files from the "public" directory
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(express.urlencoded({ extended: true }));
+
+// Configure Client Sessions
+app.use(clientSessions({
+    cookieName: "session",
+    secret: "yourSecretKeyHere",
+    duration: 24 * 60 * 60 * 1000, // 24 hours
+    activeDuration: 1000 * 60 * 5 // 5 minutes
+}));
+
+// Middleware to ensure all templates have access to session data
+app.use((req, res, next) => {
+    res.locals.session = req.session;
+    next();
+});
+
+// Helper middleware to ensure a user is logged in
+function ensureLogin(req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/login');
+    } else {
+        next();
+    }
+}
+
+// Define Routes
 
 // Categories Routes
 app.get('/categories/add', (req, res) => {
@@ -270,40 +318,17 @@ app.get('/categories', (req, res) => {
     });
 });
 
-//Handle Vercel Deployment with Database URL
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-});
-
-pool.connect((err, client, release) => {
-  if (err) {
-    return console.error('Error acquiring client', err.stack);
-  }
-  client.query('SELECT NOW()', (err, result) => {
-    release();
-    if (err) {
-      return console.error('Error executing query', err.stack);
-    }
-    console.log(result.rows);
-  });
-});
-
-
-// Handle 404 - Page Not Found
-app.use((req, res) => {
-    res.status(404).render('404');
-});
-
-// Initialize store service and start the server
+// Include 'auth-service.js' and add it to the initialization sequence
 storeService.initialize()
+    .then(authData.initialize)
     .then(() => {
         app.listen(HTTP_PORT, () => console.log(`Express http server listening on port ${HTTP_PORT}`));
     })
     .catch((err) => {
         console.error(`Unable to start server: ${err}`);
     });
+
+// Handle 404 - Page Not Found
+app.use((req, res) => {
+    res.status(404).render('404');
+});

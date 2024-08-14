@@ -1,12 +1,6 @@
-// store-service.js
-const fs = require('fs');
-const path = require('path');
-
-let categories = [];
-let items = [];
 const Sequelize = require('sequelize');
 
-var sequelize = new Sequelize('SenecaDB', 'SenecaDB_owner', 'bQL5YykxAwS3', {
+const sequelize = new Sequelize('SenecaDB', 'SenecaDB_owner', 'bQL5YykxAwS3', {
     host: 'ep-shiny-cell-a561nd35.us-east-2.aws.neon.tech',
     dialect: 'postgres',
     port: 5432,
